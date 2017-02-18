@@ -8,24 +8,27 @@ int MOTOR_B = 6;
 int en3 = 7;
 int en4 = 8;
 
-int penServo = 11;
-Servo myservo;
 int pos = 0;
 
 int rightEncoder = 12;
 int leftEncoder = 13;
 
 int left = 0;
-int rigt = 1;
+int right = 1;
+
+int penServo = 11;
+Servo myservo;  // create servo object to control a servo
 
 void setup()
 {
-pinMode(MOTOR_A, OUTPUT);
-pinMode(en1, OUTPUT);
-pinMode(en2, OUTPUT);
-pinMode(MOTOR_B, OUTPUT);
-pinMode(en3, OUTPUT);
-pinMode(en4, OUTPUT);
+  pinMode(MOTOR_A, OUTPUT);
+  pinMode(en1, OUTPUT);
+  pinMode(en2, OUTPUT);
+  pinMode(MOTOR_B, OUTPUT);
+  pinMode(en3, OUTPUT);
+  pinMode(en4, OUTPUT);
+  pinMode(penServo, OUTPUT);
+  myservo.attach(penServo);
 }
 
 void driveStraight()
@@ -68,8 +71,17 @@ void turn(int direction)
   }
   
 }
+void penRest()
+{
+  myservo.write(180);
+}
+void penWrite()
+{
+  myservo.write(90);
+}
 void loop()
 {
+  penWrite();
   for(int i; i < 4; i++)
   {
     driveStraight();
@@ -77,5 +89,7 @@ void loop()
     turn(right);
     stopMotors();
   }
+  penRest();
+  delay(1000);
   
 }

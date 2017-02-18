@@ -115,11 +115,11 @@ void penDemo()
   for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
     myservo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
+    delay(2);                       // waits 15ms for the servo to reach the position
   }
   for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
     myservo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
+    delay(2);                       // waits 15ms for the servo to reach the position
   }
 }
 void fullSpeedPen()
@@ -129,14 +129,26 @@ void fullSpeedPen()
   myservo.write(180);
   delay(1000);
 }
+
+void penRest()
+{
+  myservo.write(180);
+}
+void penWrite()
+{
+  myservo.write(90);
+}
 void loop()
 {
 
-  demoOne();
-  delay(1000);
+  //demoOne();
+  //delay(1000);
   //demoTwo();
   //delay(1000);
-
+  penRest();
+  delay(500);
+  penWrite();
+  delay(1000);
   //penDemo();
   //delay(1000);
 }
