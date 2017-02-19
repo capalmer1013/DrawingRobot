@@ -29,17 +29,18 @@ void setup()
   pinMode(en4, OUTPUT);
   pinMode(penServo, OUTPUT);
   myservo.attach(penServo);
+  Serial.begin(9600);
 }
 
-void driveStraight()
+void driveForward(int travelSpeed)
 {
  //Both motors forward
-  digitalWrite(en1, HIGH);
-  digitalWrite(en2, LOW);
-  analogWrite(MOTOR_A, 85);
-  digitalWrite(en3, LOW);
-  digitalWrite(en4, HIGH);
-  analogWrite(MOTOR_B, 100);
+  digitalWrite(en1, LOW);
+  digitalWrite(en2, HIGH);
+  analogWrite(MOTOR_A, travelSpeed);
+  digitalWrite(en3, HIGH);
+  digitalWrite(en4, LOW);
+  analogWrite(MOTOR_B, travelSpeed);
   delay(1000);
 }
 
@@ -81,15 +82,20 @@ void penWrite()
 }
 void loop()
 {
-  penWrite();
-  for(int i; i < 4; i++)
+  for(int i = 0; i < 255; i ++)
   {
-    driveStraight();
-    stopMotors();
-    turn(right);
-    stopMotors();
+      driveForward(255);
+      Serial.print(i);
+      Serial.println();
+      delay(10);
   }
-  penRest();
-  delay(1000);
-  
+  for(int i =255; i >=0; i --)
+  {
+    driveForward(i);
+    Serial.print(i);
+    Serial.println();
+    delay(10);
+  }
+
+  stopMotors();
 }
